@@ -64,7 +64,7 @@ function evenFinder(nums) {
   return nums;
 }
 
-evenFinder();
+evenFinder(nums);
 
 
 //Next problem
@@ -104,15 +104,15 @@ var numbers = [0,3,4,5,6,7,9,14,17,24,25,26,29,30];
 
 // Your job is to write a function named finder that will get a random number (by invoking getRandomArbitrary), then loop through the array (that will be passed in as a parameter) to see if that random number is in the array. If it is, return true, if it's not, return false
 
-function finder(fn, num) {
-  for(var i=0; i < num.length; i++){
-    if(fn === num[i]){
+function finder(fn, numbers) {
+  for(var i=0; i < numbers.length; i++){
+    if(fn === numbers[i]){
       return true;
     }
   }
   return false;
 }
-finder(getRandomArbitrary(), numbers)
+finder(getRandomArbitrary(), numbers);
 
 
 
@@ -127,11 +127,10 @@ var str = 'this is my sentence';
 //Write a function called reverse that takes a given str as it's only argument and returns that string after it's been reversed
 
 function reverse(str) {
-  return str.split(' ').reverse().join(' ');
+  return str.split('').reverse().join('');
 
 }
 
-reverse(str);
 console.log(reverse(str));
 
 //Next Problem
@@ -152,14 +151,26 @@ var myGroceryList = ['chips', 'pizza', 'hotpockets', 'MtnDew', 'corndogs'];
 */
 
 function removeItem(myGroceryList, item) {
-  for(var i=0; i < myGroceryList.lneght; i++){
-    if(myGroceryList[i] === item){
-      myGroceryList.splice(i, 1);
-      i--;
+	if(arguments.length <= 0){
+		return []; //if arguments dont exist return the empty array
+	}
+    if(myGroceryList.indexOf(item) !== -1){
+      myGroceryList.splice(myGroceryList.indexOf(item), 1);
     }
-  }
-  return myGroceryList;
+	return myGroceryList;
 }
+
+function addItem(myGroceryList, item) {
+	if(arguments.length <= 0){
+		return []; //if arguments dont exist return the empty array
+	}
+	if(myGroceryList.indexOf(item) === -1) {
+	myGroceryList.push(item);
+	}
+	return myGroceryList;
+}
+
+addItem(myGroceryList, "Rolls")
 
 //removeItem(myGroceryList, 'chips') --> ['pizza', 'hotpockets', 'MtnDew', 'corndogs'];
 //addItem(myGroceryList, 'Jerky') --> ['pizza', 'hotpockets', 'MtnDew', 'corndogs', 'Jerky'];
@@ -234,19 +245,29 @@ console.log(longer(arr1, arr2))
   'both' should return a new array full of numbers that are found in both arr1 and arr2.
 */
 
-function both(arr1, arr2){
-  var combinedArray = [];
-  for(var i=0; i < arr1.length; i++){
-    for(var j=0; j < arr2.length; j++){
-      if(arr1[i] === arr2[j]){
-        combinedArray.push(arr1[i]);
-      }
-    }
-  }
-  return combinedArray;
+function both(arr1, arr2) {
+	var arr = [];
+	arr1.forEach(function(item) {
+		if(arr2.indexOf(item) !==  -1) {
+			arr.push(item);
+		}	
+	})
+	return arr;
 }
 
-console.log(both(arr1, arr2));
+//function both(arr1, arr2){
+//  var combinedArray = [];
+//  for(var i=0; i < arr1.length; i++){
+//    for(var j=0; j < arr2.length; j++){
+//      if(arr1[i] === arr2[j]){
+//        combinedArray.push(arr1[i]);
+//      }
+//    }
+//  }
+//  return combinedArray;
+//}
+//
+//console.log(both(arr1, arr2));
 
 
 //NEXT PROBLEM
@@ -294,10 +315,10 @@ console.log(devMountainEmployees.length);
 /*Now let's say Cahlan has a mental breakdown and has to take a leave of absence to 'find himself'.
 Loop through your devMountainEmployees until you find cahlan, then remove him from the array.*/
 
-for(var i = 0; i < array.length; i++) {
+for(var i = arr.length - 1; i >= 0; i--) {
   if(devMountainEmployees[i].name === "Cahlan"){
     devMountainEmployees.splice(i, 1);
-    i--;
+    
   }
 }
 
@@ -379,11 +400,18 @@ and those objects contain properties about the specific person you follow.*/
 objects until you find Tyler's account (use tylermcginnis33@gmail.com to find him).
 Once you find the particular index he's located in, delete him from the array.*/
 
-for(var i=0; i < users.length; i++){
+/*for(var i=0; i < users.length; i++){
   if(users[i].email === "tylermcginnis33@gmail.com"){
     delete users[i];
   }
-}
-console.log(users);
+}*/
+function deleteUser(users, email) {
+    users.forEach(function(user) {
+      if (user.email === email) {
+        users.splice(users.indexOf(user), 1);
+      }
+    });
+  }
+//console.log(users);
 
 //The activity we just did is very much how data works in 'the real world'.
